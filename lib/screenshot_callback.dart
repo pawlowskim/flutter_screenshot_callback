@@ -51,12 +51,8 @@ class ScreenshotCallback {
     await _channel.invokeMethod("dispose");
   }
 
-  Future<void> checkPermission() async {
-    PermissionStatus status = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.storage);
-
-    if (status != PermissionStatus.granted) {
-      await PermissionHandler().requestPermissions([PermissionGroup.storage]);
-    }
-  }
+  /// Checks if user has granted permissions for storage.
+  ///
+  /// If permission is not granted, it'll be requested.
+  Future<void> checkPermission() async => await Permission.storage.request();
 }
